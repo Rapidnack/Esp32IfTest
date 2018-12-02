@@ -1,4 +1,6 @@
-﻿namespace Rapidnack.Net.Esp32
+﻿using Rapidnack.Net.Esp32;
+
+namespace Esp32IfTest
 {
 	public class MyOLEDDisplay
 	{
