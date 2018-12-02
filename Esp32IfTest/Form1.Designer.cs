@@ -55,6 +55,8 @@
 			this.buttonI2cStop = new System.Windows.Forms.Button();
 			this.buttonI2cStart = new System.Windows.Forms.Button();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.radioButton3v = new System.Windows.Forms.RadioButton();
+			this.radioButton1v = new System.Windows.Forms.RadioButton();
 			this.buttonFastStop = new System.Windows.Forms.Button();
 			this.buttonFastStart = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -69,8 +71,6 @@
 			this.loggingTextBox1 = new Rapidnack.Common.LoggingTextBox();
 			this.plotView1 = new OxyPlot.WindowsForms.PlotView();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.radioButton1v = new System.Windows.Forms.RadioButton();
-			this.radioButton3v = new System.Windows.Forms.RadioButton();
 			this.panel1.SuspendLayout();
 			this.panelOperation.SuspendLayout();
 			this.groupBox12.SuspendLayout();
@@ -113,6 +113,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.panelOperation.Controls.Add(this.groupBox12);
 			this.panelOperation.Controls.Add(this.groupBox11);
+			this.panelOperation.Controls.Add(this.groupBox1);
 			this.panelOperation.Controls.Add(this.groupBox5);
 			this.panelOperation.Controls.Add(this.groupBox10);
 			this.panelOperation.Controls.Add(this.groupBox9);
@@ -121,7 +122,6 @@
 			this.panelOperation.Controls.Add(this.groupBox6);
 			this.panelOperation.Controls.Add(this.groupBox4);
 			this.panelOperation.Controls.Add(this.groupBox2);
-			this.panelOperation.Controls.Add(this.groupBox1);
 			this.panelOperation.Location = new System.Drawing.Point(0, 41);
 			this.panelOperation.Name = "panelOperation";
 			this.panelOperation.Size = new System.Drawing.Size(314, 400);
@@ -162,10 +162,10 @@
 			// 
 			this.groupBox11.Controls.Add(this.buttonLedStart);
 			this.groupBox11.Controls.Add(this.buttonLedStop);
-			this.groupBox11.Location = new System.Drawing.Point(8, 3);
+			this.groupBox11.Location = new System.Drawing.Point(8, 68);
 			this.groupBox11.Name = "groupBox11";
 			this.groupBox11.Size = new System.Drawing.Size(147, 59);
-			this.groupBox11.TabIndex = 0;
+			this.groupBox11.TabIndex = 1;
 			this.groupBox11.TabStop = false;
 			this.groupBox11.Text = "LED (pin 16)";
 			// 
@@ -398,6 +398,29 @@
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "ADC0 (Fast)";
 			// 
+			// radioButton3v
+			// 
+			this.radioButton3v.AutoSize = true;
+			this.radioButton3v.Checked = true;
+			this.radioButton3v.Location = new System.Drawing.Point(82, 25);
+			this.radioButton3v.Name = "radioButton3v";
+			this.radioButton3v.Size = new System.Drawing.Size(55, 20);
+			this.radioButton3v.TabIndex = 3;
+			this.radioButton3v.TabStop = true;
+			this.radioButton3v.Text = "3.3V";
+			this.radioButton3v.UseVisualStyleBackColor = true;
+			// 
+			// radioButton1v
+			// 
+			this.radioButton1v.AutoSize = true;
+			this.radioButton1v.Location = new System.Drawing.Point(11, 25);
+			this.radioButton1v.Name = "radioButton1v";
+			this.radioButton1v.Size = new System.Drawing.Size(55, 20);
+			this.radioButton1v.TabIndex = 2;
+			this.radioButton1v.Text = "1.1V";
+			this.radioButton1v.UseVisualStyleBackColor = true;
+			this.radioButton1v.CheckedChanged += new System.EventHandler(this.radioButton1v_CheckedChanged);
+			// 
 			// buttonFastStop
 			// 
 			this.buttonFastStop.Location = new System.Drawing.Point(77, 48);
@@ -455,10 +478,10 @@
 			// 
 			this.groupBox1.Controls.Add(this.buttonTouchStop);
 			this.groupBox1.Controls.Add(this.buttonTouchStart);
-			this.groupBox1.Location = new System.Drawing.Point(8, 68);
+			this.groupBox1.Location = new System.Drawing.Point(8, 3);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(147, 59);
-			this.groupBox1.TabIndex = 1;
+			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Touch (pin 12-15)";
 			// 
@@ -552,29 +575,6 @@
 			this.splitContainer1.Size = new System.Drawing.Size(310, 441);
 			this.splitContainer1.SplitterDistance = 220;
 			this.splitContainer1.TabIndex = 3;
-			// 
-			// radioButton1v
-			// 
-			this.radioButton1v.AutoSize = true;
-			this.radioButton1v.Location = new System.Drawing.Point(11, 25);
-			this.radioButton1v.Name = "radioButton1v";
-			this.radioButton1v.Size = new System.Drawing.Size(55, 20);
-			this.radioButton1v.TabIndex = 2;
-			this.radioButton1v.Text = "1.1V";
-			this.radioButton1v.UseVisualStyleBackColor = true;
-			this.radioButton1v.CheckedChanged += new System.EventHandler(this.radioButton1v_CheckedChanged);
-			// 
-			// radioButton3v
-			// 
-			this.radioButton3v.AutoSize = true;
-			this.radioButton3v.Checked = true;
-			this.radioButton3v.Location = new System.Drawing.Point(82, 25);
-			this.radioButton3v.Name = "radioButton3v";
-			this.radioButton3v.Size = new System.Drawing.Size(55, 20);
-			this.radioButton3v.TabIndex = 3;
-			this.radioButton3v.TabStop = true;
-			this.radioButton3v.Text = "3.3V";
-			this.radioButton3v.UseVisualStyleBackColor = true;
 			// 
 			// Form1
 			// 
