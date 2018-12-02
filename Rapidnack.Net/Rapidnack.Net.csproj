@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Esp32\AD9833.cs" />
     <Compile Include="Esp32\Esp32If.cs" />
+    <Compile Include="Esp32\OLEDDisplay.cs" />
     <Compile Include="Esp32\SPIClass.cs" />
     <Compile Include="Esp32\TwoWire.cs" />
     <Compile Include="GpiodIf.cs" />

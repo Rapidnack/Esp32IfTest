@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Esp32IfTest
 {
-	public class ADXL345
+	public class MyADXL345
 	{
 		public enum range_t
 		{
@@ -18,28 +18,34 @@ namespace Esp32IfTest
 		}
 
 
+		private const int ADXL345_BASE = 20000;
+		private const int ADXL345_BEGIN = (ADXL345_BASE + 0);
+		private const int ADXL345_SET_RANGE = (ADXL345_BASE + 1);
+		private const int ADXL345_GET_EVENT = (ADXL345_BASE + 2);
+
+
 		private Esp32If esp32If;
 
 
-		public ADXL345(Esp32If esp32If)
+		public MyADXL345(Esp32If esp32If)
 		{
 			this.esp32If = esp32If;
 		}
 
 
-		private const int ADXL345_BEGIN = 10002;
+		// private const int ADXL345_BEGIN = (ADXL345_BASE + 0);
 		public int Begin()
 		{
 			return esp32If.GpioCommand(ADXL345_BEGIN, 0, 0);
 		}
 
-		private const int ADXL345_SET_RANGE = 10003;
+		// private const int ADXL345_SET_RANGE = (ADXL345_BASE + 1);
 		public int SetRange(range_t range)
 		{
 			return esp32If.GpioCommand(ADXL345_SET_RANGE, (int)range, 0);
 		}
 
-		private const int ADXL345_GET_EVENT = 10004;
+		// private const int ADXL345_GET_EVENT = (ADXL345_BASE + 2);
 		public double[] GetEvent()
 		{
 			byte[] rxBuf;

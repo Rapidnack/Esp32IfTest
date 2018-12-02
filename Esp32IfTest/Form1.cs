@@ -13,8 +13,9 @@ namespace Esp32IfTest
 	public partial class Form1 : Form
 	{
 		private Esp32If esp32If;
-		private AD9833 ad9833;
-		private ADXL345 adxl345;
+		private MyAD9833 ad9833;
+		private MyADXL345 adxl345;
+		private MyOLEDDisplay oledDisplay;
 
 		private CancellationTokenSource ledCts;
 		private CancellationTokenSource rollCts;
@@ -103,8 +104,9 @@ namespace Esp32IfTest
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			esp32If = new Esp32If();
-			ad9833 = new AD9833(esp32If);
-			adxl345 = new ADXL345(esp32If);
+			ad9833 = new MyAD9833(esp32If);
+			adxl345 = new MyADXL345(esp32If);
+			oledDisplay = new MyOLEDDisplay(esp32If);
 
 			esp32If.StreamConnected += (s, evt) =>
 			{
@@ -112,6 +114,9 @@ namespace Esp32IfTest
 				{
 					panelOperation.Enabled = true;
 				}));
+
+				oledDisplay.drawString(0, 48, "Connected");
+				oledDisplay.display();
 			};
 
 			panelOperation.Enabled = false;
@@ -545,7 +550,7 @@ namespace Esp32IfTest
 			esp32If.ledcSetup(SERVO_2_CH, 50, 16);
 			esp32If.ledcAttachPin(SERVO_2_PIN, SERVO_2_CH);
 
-			int duty = (0x0000ffff * trackBarServo1.Value) / 20000;
+			int duty = (0x0000ffff * trackBarServo2.Value) / 20000;
 			esp32If.ledcWrite(SERVO_2_CH, duty);
 		}
 
@@ -597,9 +602,12 @@ namespace Esp32IfTest
 					while (!ct.IsCancellationRequested)
 					{
 						byte[] axis_buff = readI2c(DEVICE_ADDR, 0x32, 6);
-						int x = (((int)axis_buff[1]) << 8) | axis_buff[0];
-						int y = (((int)axis_buff[3]) << 8) | axis_buff[2];
-						int z = (((int)axis_buff[5]) << 8) | axis_buff[4];
+						int x = (axis_buff[1] << 8) + axis_buff[0];
+						int y = (axis_buff[3] << 8) + axis_buff[2];
+						int z = (axis_buff[5] << 8) + axis_buff[4];
+						if (x > 0x8000) x -= 0x10000;
+						if (y > 0x8000) y -= 0x10000;
+						if (z > 0x8000) z -= 0x10000;
 
 						if (ct.IsCancellationRequested)
 							break;
@@ -648,7 +656,7 @@ namespace Esp32IfTest
 						Console.WriteLine("Ooops, no ADXL345 detected ... Check your wiring!");
 						return;
 					}
-					adxl345.SetRange(ADXL345.range_t.ADXL345_RANGE_16_G);
+					adxl345.SetRange(MyADXL345.range_t.ADXL345_RANGE_16_G);
 
 					while (!ct.IsCancellationRequested)
 					{
@@ -801,12 +809,12 @@ namespace Esp32IfTest
 					bool up = true;
 
 					ad9833.Begin();
-					ad9833.ApplySignal(AD9833.WaveformType.TRIANGLE_WAVE, AD9833.Registers.REG0, freq);
+					ad9833.ApplySignal(MyAD9833.WaveformType.TRIANGLE_WAVE, MyAD9833.Registers.REG0, freq);
 					ad9833.EnableOutput(true);
 
 					while (!ct.IsCancellationRequested)
 					{
-						ad9833.SetFrequency(AD9833.Registers.REG0, freq);
+						ad9833.SetFrequency(MyAD9833.Registers.REG0, freq);
 						if (up)
 						{
 							freq *= 1.1;
