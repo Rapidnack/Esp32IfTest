@@ -268,6 +268,15 @@ namespace Esp32IfTest
 			buttonRollStart.Enabled = false;
 			buttonRollStop.Enabled = true;
 
+			if (rollMultiCts != null)
+			{
+				rollMultiCts.Cancel();
+			}
+			if (fastCts != null)
+			{
+				fastCts.Cancel();
+			}
+
 			double ADC_SCALE = 3.3;
 			int NUM_SAMPLES = 200;
 
@@ -298,7 +307,7 @@ namespace Esp32IfTest
 						if (ct.IsCancellationRequested)
 							break;
 
-						Console.WriteLine("{0}", volt.ToString("0.0"));
+						//Console.WriteLine("{0}", volt.ToString("0.0"));
 
 						Invoke(new Action(() =>
 						{
@@ -348,6 +357,15 @@ namespace Esp32IfTest
 		{
 			buttonRollMultiStart.Enabled = false;
 			buttonRollMultiStop.Enabled = true;
+
+			if (rollCts != null)
+			{
+				rollCts.Cancel();
+			}
+			if (fastCts != null)
+			{
+				fastCts.Cancel();
+			}
 
 			double ADC_SCALE = 3.6;
 			int[] adcPins = { 32, 33, 34, 35 };
@@ -471,6 +489,15 @@ namespace Esp32IfTest
 
 		private async void buttonFastStart_Click(object sender, EventArgs e)
 		{
+			if (rollCts != null)
+			{
+				rollCts.Cancel();
+			}
+			if (rollMultiCts != null)
+			{
+				rollMultiCts.Cancel();
+			}
+
 			do
 			{
 				repeatRequested = false;
