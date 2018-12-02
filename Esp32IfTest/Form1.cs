@@ -35,6 +35,8 @@ namespace Esp32IfTest
 		private CancellationTokenSource spiCts;
 		private CancellationTokenSource spiLibCts;
 
+		private bool repeatRequested;
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -266,12 +268,12 @@ namespace Esp32IfTest
 			buttonRollStart.Enabled = false;
 			buttonRollStop.Enabled = true;
 
-			double ROLL_ADC_SCALE = 3.3;
+			double ADC_SCALE = 3.3;
 			int NUM_SAMPLES = 200;
 
 			PlotModel plotModel = new PlotModel();
 			LineSeries lineSeries = new LineSeries() { Title = "ADC3" };
-			LinearAxis linearAxis = new LinearAxis() { Position = AxisPosition.Left, Minimum = 0 - 0.1, Maximum = ROLL_ADC_SCALE + 0.1 };
+			LinearAxis linearAxis = new LinearAxis() { Position = AxisPosition.Left, Minimum = 0 - 0.1, Maximum = ADC_SCALE + 0.1 };
 			plotModel.Series.Add(lineSeries);
 			plotModel.Axes.Add(linearAxis);
 			plotView1.Model = plotModel;
@@ -290,7 +292,7 @@ namespace Esp32IfTest
 					while (!ct.IsCancellationRequested)
 					{
 						TimeSpan ts = DateTime.Now - start;
-						double volt = ROLL_ADC_SCALE * esp32If.analogRead(ROLL_ADC_PIN) / 4096.0;
+						double volt = ADC_SCALE * esp32If.analogRead(ROLL_ADC_PIN) / 4096.0;
 						DataPoint dataPoint = new DataPoint(ts.TotalSeconds, volt);
 
 						if (ct.IsCancellationRequested)
@@ -347,7 +349,7 @@ namespace Esp32IfTest
 			buttonRollMultiStart.Enabled = false;
 			buttonRollMultiStop.Enabled = true;
 
-			double ROLL_ADC_SCALE = 3.6;
+			double ADC_SCALE = 3.6;
 			int[] adcPins = { 32, 33, 34, 35 };
 			int[] adcCHs = { 4, 5, 6, 7 };
 			int NUM_CHANNELS = 4;
@@ -362,7 +364,7 @@ namespace Esp32IfTest
 				plotModel.Series.Add(lineSeries[ch]);
 			}
 			plotModel.Axes.Add(
-				new LinearAxis() { Position = AxisPosition.Left, Minimum = 0 - 0.1, Maximum = ROLL_ADC_SCALE + 0.1 }
+				new LinearAxis() { Position = AxisPosition.Left, Minimum = 0 - 0.1, Maximum = ADC_SCALE + 0.1 }
 			);
 			plotView1.Model = plotModel;
 
@@ -395,7 +397,7 @@ namespace Esp32IfTest
 						TimeSpan ts = DateTime.Now - start;
 						for (int ch = 0; ch < NUM_CHANNELS; ch++)
 						{
-							double volt = ROLL_ADC_SCALE * ints[ch * 2] / 4096.0;
+							double volt = ADC_SCALE * ints[ch * 2] / 4096.0;
 							volts[ch] = volt;
 							dataPoints[ch] = new DataPoint(ts.TotalSeconds, volt);
 						}
@@ -469,77 +471,102 @@ namespace Esp32IfTest
 
 		private async void buttonFastStart_Click(object sender, EventArgs e)
 		{
-			buttonFastStart.Enabled = false;
-			buttonFastStop.Enabled = true;
-
-			double FAST_ADC_SCALE = 1.0;
-			int NUM_SAMPLES = 200;
-
-			PlotModel plotModel = new PlotModel();
-			LineSeries lineSeries = new LineSeries() { Title = "ADC0" };
-			LinearAxis linearAxis = new LinearAxis() { Position = AxisPosition.Left, Minimum = 0 - 0.1, Maximum = FAST_ADC_SCALE + 0.1 };
-			plotModel.Series.Add(lineSeries);
-			plotModel.Axes.Add(linearAxis);
-			plotView1.Model = plotModel;
-
-			try
+			do
 			{
-				fastCts = new CancellationTokenSource();
-				var ct = fastCts.Token;
-				await Task.Run(() =>
+				repeatRequested = false;
+
+				buttonFastStart.Enabled = false;
+				buttonFastStop.Enabled = true;
+
+				double ADC_SCALE;
+				Esp32If.AdcAttenuation att;
+				if (radioButton1v.Checked)
 				{
-					esp32If.analogSetPinAttenuation(FAST_ADC_PIN, Esp32If.AdcAttenuation.ADC_0db);
+					ADC_SCALE = 1.1;
+					att = Esp32If.AdcAttenuation.ADC_0db;
+				}
+				else
+				{
+					ADC_SCALE = 3.3;
+					att = Esp32If.AdcAttenuation.ADC_11db;
+				}
+				int NUM_SAMPLES = 200;
 
-					lineSeries.Points.Clear();
+				PlotModel plotModel = new PlotModel();
+				LineSeries lineSeries = new LineSeries() { Title = "ADC0" };
+				LinearAxis linearAxis = new LinearAxis() { Position = AxisPosition.Left, Minimum = 0 - 0.1, Maximum = ADC_SCALE + 0.1 };
+				plotModel.Series.Add(lineSeries);
+				plotModel.Axes.Add(linearAxis);
+				plotView1.Model = plotModel;
 
-					while (!ct.IsCancellationRequested)
+				try
+				{
+					fastCts = new CancellationTokenSource();
+					var ct = fastCts.Token;
+					await Task.Run(() =>
 					{
-						int[] ints = analogFastRead(FAST_ADC_PIN, NUM_SAMPLES);
-						if (ints.Length != 2 * NUM_SAMPLES)
-							return;
+						esp32If.analogSetPinAttenuation(FAST_ADC_PIN, att);
 
-						DataPoint[] dataPoints = new DataPoint[NUM_SAMPLES];
-						for (int i = 0; i < NUM_SAMPLES; i++)
+						lineSeries.Points.Clear();
+
+						while (!ct.IsCancellationRequested)
 						{
-							double volt = FAST_ADC_SCALE * ints[2 * i] / 4096.0;
-							double seconds = (uint)(ints[2 * i + 1] - ints[1]) / 1e6;
-							dataPoints[i] = new DataPoint(seconds, volt);
-							//Console.WriteLine($"{i}: {seconds}, {volt}");
+							int[] ints = analogFastRead(FAST_ADC_PIN, NUM_SAMPLES);
+							if (ints.Length != 2 * NUM_SAMPLES)
+								return;
+
+							DataPoint[] dataPoints = new DataPoint[NUM_SAMPLES];
+							for (int i = 0; i < NUM_SAMPLES; i++)
+							{
+								double volt = ADC_SCALE * ints[2 * i] / 4096.0;
+								double seconds = (uint)(ints[2 * i + 1] - ints[1]) / 1e6;
+								dataPoints[i] = new DataPoint(seconds, volt);
+								//Console.WriteLine($"{i}: {seconds}, {volt}");
+							}
+
+							if (ct.IsCancellationRequested)
+								break;
+
+							Invoke(new Action(() =>
+							{
+								lineSeries.Points.Clear();
+								lineSeries.Points.AddRange(dataPoints);
+
+								plotModel.InvalidatePlot(true);
+								plotView1.Invalidate();
+							}));
 						}
+					}, ct);
+				}
+				catch (OperationCanceledException)
+				{
+					// nothing to do
+				}
+				catch (GpiodIfException ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+				finally
+				{
+					fastCts = null;
 
-						if (ct.IsCancellationRequested)
-							break;
-
-						Invoke(new Action(() =>
-						{
-							lineSeries.Points.Clear();
-							lineSeries.Points.AddRange(dataPoints);
-
-							plotModel.InvalidatePlot(true);
-							plotView1.Invalidate();
-						}));
-					}
-				}, ct);
-			}
-			catch (OperationCanceledException)
-			{
-				// nothing to do
-			}
-			catch (GpiodIfException ex)
-			{
-				Console.WriteLine(ex.Message);
-			}
-			finally
-			{
-				fastCts = null;
-
-				buttonFastStart.Enabled = true;
-				buttonFastStop.Enabled = false;
-			}
+					buttonFastStart.Enabled = true;
+					buttonFastStop.Enabled = false;
+				}
+			} while (repeatRequested);
 		}
 
 		private void buttonFastStop_Click(object sender, EventArgs e)
 		{
+			fastCts.Cancel();
+		}
+
+		private void radioButton1v_CheckedChanged(object sender, EventArgs e)
+		{
+			if (fastCts == null)
+				return;
+
+			repeatRequested = true;
 			fastCts.Cancel();
 		}
 

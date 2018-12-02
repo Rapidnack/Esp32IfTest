@@ -268,7 +268,14 @@ namespace Rapidnack.Net
 
 			if (handle >= 0)
 			{
-				GpioCommand(CMD_NC, handle, 0);
+				try
+				{
+					GpioCommand(CMD_NC, handle, 0);
+				}
+				catch (GpiodIfException ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
 				handle = -1;
 			}
 
