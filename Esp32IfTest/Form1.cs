@@ -485,6 +485,9 @@ namespace Esp32IfTest
 					while (!ct.IsCancellationRequested)
 					{
 						int[] ints = analogFastRead(FAST_ADC_PIN, NUM_SAMPLES);
+						if (ints.Length != 2 * NUM_SAMPLES)
+							return;
+
 						DataPoint[] dataPoints = new DataPoint[NUM_SAMPLES];
 						for (int i = 0; i < NUM_SAMPLES; i++)
 						{

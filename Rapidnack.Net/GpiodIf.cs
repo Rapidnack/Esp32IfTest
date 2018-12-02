@@ -52,6 +52,8 @@ namespace Rapidnack.Net
 		private const int CMD_NC = 21;
 		private const int CMD_NOIB = 99;
 
+		private const int ERR_UNKNOWN_COMMAND = -88;
+
 		#endregion
 
 
@@ -284,11 +286,6 @@ namespace Rapidnack.Net
 			}
 		}
 
-		#endregion
-
-
-		#region # private method
-
 		public byte[] IntArrayToBytes(int[] array)
 		{
 			int numBytes = 4;
@@ -351,6 +348,36 @@ namespace Rapidnack.Net
 			}
 		}
 
+		public int GpioCommandExt(int command, int p1, int p2, GpioExtent[] exts)
+		{
+			int[] cmd = InternalGpioCommandExt(command, p1, p2, exts);
+			return cmd[2];
+		}
+
+		public int GpioCommandExt(int command, int p1, int p2, GpioExtent[] exts, out byte[] rxBuf)
+		{
+			rxBuf = new byte[0];
+
+			lock (LockObject)
+			{
+				var cmd = InternalGpioCommandExt(command, p1, p2, exts);
+				int bytes = cmd[3];
+
+				if (bytes > 0)
+				{
+					rxBuf = new byte[bytes];
+					RecvMax(rxBuf, bytes);
+				}
+
+				return cmd[2];
+			}
+		}
+
+		#endregion
+
+
+		#region # private method
+
 		private int[] InternalGpioCommand(int command, int p1, int p2)
 		{
 			if (CanWrite == false || CanRead == false)
@@ -394,82 +421,15 @@ namespace Rapidnack.Net
 			// byte[] -> int[]
 			cmd = BytesToIntArray(bytes);
 
+			if (cmd[1] == ERR_UNKNOWN_COMMAND)
+			{
+				Console.WriteLine($"unknown command: {cmd[0]}");
+			}
+
 			return cmd;
 		}
 
-		private int GpioNotify()
-		{
-			if (NotifyTcpConnection == null || NotifyTcpConnection.Stream == null ||
-				NotifyTcpConnection.Stream.CanWrite == false || NotifyTcpConnection.Stream.CanRead == false)
-			{
-				throw new GpiodIfException("not connected to the device");
-			}
-
-			int[] cmd = new int[4];
-			cmd[0] = CMD_NOIB;
-			cmd[1] = 0;
-			cmd[2] = 0;
-			cmd[3] = 0;
-
-			// int[] -> byte[]
-			byte[] bytes = IntArrayToBytes(cmd);
-
-			lock (LockObject)
-			{
-				try
-				{
-					NotifyTcpConnection.Stream.Write(bytes, 0, bytes.Length);
-				}
-				catch (Exception)
-				{
-					throw new GpiodIfException("failed to send to the device");
-				}
-
-				try
-				{
-					if (NotifyTcpConnection.Stream.Read(bytes, 0, bytes.Length) != bytes.Length)
-					{
-						throw new GpiodIfException("failed to receive from the device");
-					}
-				}
-				catch (Exception)
-				{
-					throw new GpiodIfException("failed to receive from the device");
-				}
-			}
-
-			// byte[] -> int[]
-			cmd = BytesToIntArray(bytes);
-
-			return cmd[2];
-		}
-
-		public int GpioCommandExt(int command, int p1, int p2, GpioExtent[] exts)
-		{
-			int[] cmd = InternalGpioCommandExt(command, p1, p2, exts);
-			return cmd[2];
-		}
-
-		public int GpioCommandExt(int command, int p1, int p2, GpioExtent[] exts, out byte[] rxBuf)
-		{
-			rxBuf = new byte[0];
-
-			lock (LockObject)
-			{
-				var cmd = InternalGpioCommandExt(command, p1, p2, exts);
-				int bytes = cmd[3];
-
-				if (bytes > 0)
-				{
-					rxBuf = new byte[bytes];
-					RecvMax(rxBuf, bytes);
-				}
-
-				return cmd[2];
-			}
-		}
-
-		protected int[] InternalGpioCommandExt(int command, int p1, int p2, GpioExtent[] exts)
+		private int[] InternalGpioCommandExt(int command, int p1, int p2, GpioExtent[] exts)
 		{
 			if (CanWrite == false || CanRead == false)
 			{
@@ -526,7 +486,91 @@ namespace Rapidnack.Net
 			// byte[] -> int[]
 			cmd = BytesToIntArray(cmdBytes);
 
+			if (cmd[1] == ERR_UNKNOWN_COMMAND)
+			{
+				Console.WriteLine($"unknown command: {cmd[0]}");
+			}
+
 			return cmd;
+		}
+
+		private int RecvMax(byte[] buf, int sent)
+		{
+			/*
+			Copy at most bufSize bytes from the receieved message to
+			buf.  Discard the rest of the message.
+			*/
+			byte[] scratch = new byte[4096];
+			int remaining, fetch, count;
+
+			if (sent < buf.Length) count = sent; else count = buf.Length;
+
+			if (count > 0)
+			{
+				int received = 0;
+				while (received < count)
+				{
+					received += this.TcpConnection.Stream.Read(buf, received, count - received);
+				}
+			}
+
+			remaining = sent - count;
+
+			while (remaining > 0)
+			{
+				fetch = remaining;
+				if (fetch > scratch.Length) fetch = scratch.Length;
+				remaining -= this.TcpConnection.Stream.Read(scratch, 0, fetch);
+			}
+
+			return count;
+		}
+
+		private int GpioNotify()
+		{
+			if (NotifyTcpConnection == null || NotifyTcpConnection.Stream == null ||
+				NotifyTcpConnection.Stream.CanWrite == false || NotifyTcpConnection.Stream.CanRead == false)
+			{
+				throw new GpiodIfException("not connected to the device");
+			}
+
+			int[] cmd = new int[4];
+			cmd[0] = CMD_NOIB;
+			cmd[1] = 0;
+			cmd[2] = 0;
+			cmd[3] = 0;
+
+			// int[] -> byte[]
+			byte[] bytes = IntArrayToBytes(cmd);
+
+			lock (LockObject)
+			{
+				try
+				{
+					NotifyTcpConnection.Stream.Write(bytes, 0, bytes.Length);
+				}
+				catch (Exception)
+				{
+					throw new GpiodIfException("failed to send to the device");
+				}
+
+				try
+				{
+					if (NotifyTcpConnection.Stream.Read(bytes, 0, bytes.Length) != bytes.Length)
+					{
+						throw new GpiodIfException("failed to receive from the device");
+					}
+				}
+				catch (Exception)
+				{
+					throw new GpiodIfException("failed to receive from the device");
+				}
+			}
+
+			// byte[] -> int[]
+			cmd = BytesToIntArray(bytes);
+
+			return cmd[2];
 		}
 
 		private void NotifyThread(CancellationToken ct)
@@ -614,38 +658,6 @@ namespace Rapidnack.Net
 			callbackList[user_gpio] = null;
 
 			return 0;
-		}
-
-		protected int RecvMax(byte[] buf, int sent)
-		{
-			/*
-			Copy at most bufSize bytes from the receieved message to
-			buf.  Discard the rest of the message.
-			*/
-			byte[] scratch = new byte[4096];
-			int remaining, fetch, count;
-
-			if (sent < buf.Length) count = sent; else count = buf.Length;
-
-			if (count > 0)
-			{
-				int received = 0;
-				while (received < count)
-				{
-					received += this.TcpConnection.Stream.Read(buf, received, count - received);
-				}
-			}
-
-			remaining = sent - count;
-
-			while (remaining > 0)
-			{
-				fetch = remaining;
-				if (fetch > scratch.Length) fetch = scratch.Length;
-				remaining -= this.TcpConnection.Stream.Read(scratch, 0, fetch);
-			}
-
-			return count;
 		}
 
 		#endregion
