@@ -4,6 +4,7 @@ using OxyPlot.Series;
 using Rapidnack.Net;
 using Rapidnack.Net.Esp32;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -519,10 +520,14 @@ namespace Esp32IfTest
 							for (int i = 0; i < NUM_SAMPLES; i++)
 							{
 								double volt = ADC_SCALE * ints[2 * i] / 4096.0;
-								double seconds = (uint)(ints[2 * i + 1] - ints[1]) / 1e6;
+								double seconds = ints[2 * i + 1] / 1e6;
 								dataPoints[i] = new DataPoint(seconds, volt);
 								//Console.WriteLine($"{i}: {seconds}, {volt}");
 							}
+							dataPoints = dataPoints.OrderBy(p => p.X).ToArray();
+							int trigPos = (NUM_SAMPLES * 10) / 100;
+							double trigX = dataPoints[trigPos].X;
+							dataPoints = dataPoints.Select(p => new DataPoint(p.X - trigX, p.Y)).ToArray();
 
 							if (ct.IsCancellationRequested)
 								break;
