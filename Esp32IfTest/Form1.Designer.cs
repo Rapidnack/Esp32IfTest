@@ -36,6 +36,9 @@
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
 			this.buttonLedStart = new System.Windows.Forms.Button();
 			this.buttonLedStop = new System.Windows.Forms.Button();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.buttonTouchStop = new System.Windows.Forms.Button();
+			this.buttonTouchStart = new System.Windows.Forms.Button();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			this.trackBarServo2 = new System.Windows.Forms.TrackBar();
 			this.trackBarServo1 = new System.Windows.Forms.TrackBar();
@@ -62,9 +65,6 @@
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.trackBarDac2 = new System.Windows.Forms.TrackBar();
 			this.trackBarDac1 = new System.Windows.Forms.TrackBar();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.buttonTouchStop = new System.Windows.Forms.Button();
-			this.buttonTouchStart = new System.Windows.Forms.Button();
 			this.buttonClose = new System.Windows.Forms.Button();
 			this.buttonOpen = new System.Windows.Forms.Button();
 			this.textBoxAddress = new System.Windows.Forms.TextBox();
@@ -75,6 +75,7 @@
 			this.panelOperation.SuspendLayout();
 			this.groupBox12.SuspendLayout();
 			this.groupBox11.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.groupBox5.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarServo2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarServo1)).BeginInit();
@@ -87,7 +88,6 @@
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarDac2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarDac1)).BeginInit();
-			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -122,19 +122,19 @@
 			this.panelOperation.Controls.Add(this.groupBox6);
 			this.panelOperation.Controls.Add(this.groupBox4);
 			this.panelOperation.Controls.Add(this.groupBox2);
-			this.panelOperation.Location = new System.Drawing.Point(0, 41);
+			this.panelOperation.Location = new System.Drawing.Point(0, 36);
 			this.panelOperation.Name = "panelOperation";
-			this.panelOperation.Size = new System.Drawing.Size(314, 400);
-			this.panelOperation.TabIndex = 3;
+			this.panelOperation.Size = new System.Drawing.Size(314, 405);
+			this.panelOperation.TabIndex = 0;
 			// 
 			// groupBox12
 			// 
 			this.groupBox12.Controls.Add(this.buttonRollMultiStart);
 			this.groupBox12.Controls.Add(this.buttonRollMultiStop);
-			this.groupBox12.Location = new System.Drawing.Point(161, 3);
+			this.groupBox12.Location = new System.Drawing.Point(161, 68);
 			this.groupBox12.Name = "groupBox12";
 			this.groupBox12.Size = new System.Drawing.Size(147, 59);
-			this.groupBox12.TabIndex = 5;
+			this.groupBox12.TabIndex = 6;
 			this.groupBox12.TabStop = false;
 			this.groupBox12.Text = "ADC4-7 (Roll)";
 			// 
@@ -162,10 +162,10 @@
 			// 
 			this.groupBox11.Controls.Add(this.buttonLedStart);
 			this.groupBox11.Controls.Add(this.buttonLedStop);
-			this.groupBox11.Location = new System.Drawing.Point(8, 68);
+			this.groupBox11.Location = new System.Drawing.Point(8, 3);
 			this.groupBox11.Name = "groupBox11";
 			this.groupBox11.Size = new System.Drawing.Size(147, 59);
-			this.groupBox11.TabIndex = 1;
+			this.groupBox11.TabIndex = 0;
 			this.groupBox11.TabStop = false;
 			this.groupBox11.Text = "LED (pin 16)";
 			// 
@@ -189,14 +189,45 @@
 			this.buttonLedStop.UseVisualStyleBackColor = true;
 			this.buttonLedStop.Click += new System.EventHandler(this.buttonLedStop_Click);
 			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.buttonTouchStop);
+			this.groupBox1.Controls.Add(this.buttonTouchStart);
+			this.groupBox1.Location = new System.Drawing.Point(161, 220);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(147, 59);
+			this.groupBox1.TabIndex = 8;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Touch (pin 12-15)";
+			// 
+			// buttonTouchStop
+			// 
+			this.buttonTouchStop.Location = new System.Drawing.Point(77, 22);
+			this.buttonTouchStop.Name = "buttonTouchStop";
+			this.buttonTouchStop.Size = new System.Drawing.Size(65, 27);
+			this.buttonTouchStop.TabIndex = 1;
+			this.buttonTouchStop.Text = "Stop";
+			this.buttonTouchStop.UseVisualStyleBackColor = true;
+			this.buttonTouchStop.Click += new System.EventHandler(this.buttonTouchStop_Click);
+			// 
+			// buttonTouchStart
+			// 
+			this.buttonTouchStart.Location = new System.Drawing.Point(6, 22);
+			this.buttonTouchStart.Name = "buttonTouchStart";
+			this.buttonTouchStart.Size = new System.Drawing.Size(65, 27);
+			this.buttonTouchStart.TabIndex = 0;
+			this.buttonTouchStart.Text = "Start";
+			this.buttonTouchStart.UseVisualStyleBackColor = true;
+			this.buttonTouchStart.Click += new System.EventHandler(this.buttonTouchStart_Click);
+			// 
 			// groupBox5
 			// 
 			this.groupBox5.Controls.Add(this.trackBarServo2);
 			this.groupBox5.Controls.Add(this.trackBarServo1);
-			this.groupBox5.Location = new System.Drawing.Point(8, 299);
+			this.groupBox5.Location = new System.Drawing.Point(8, 169);
 			this.groupBox5.Name = "groupBox5";
 			this.groupBox5.Size = new System.Drawing.Size(147, 95);
-			this.groupBox5.TabIndex = 4;
+			this.groupBox5.TabIndex = 2;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "LEDC (pin 27,17)";
 			// 
@@ -234,10 +265,10 @@
 			// 
 			this.groupBox10.Controls.Add(this.buttonRollStart);
 			this.groupBox10.Controls.Add(this.buttonRollStop);
-			this.groupBox10.Location = new System.Drawing.Point(8, 133);
+			this.groupBox10.Location = new System.Drawing.Point(161, 3);
 			this.groupBox10.Name = "groupBox10";
 			this.groupBox10.Size = new System.Drawing.Size(147, 59);
-			this.groupBox10.TabIndex = 2;
+			this.groupBox10.TabIndex = 5;
 			this.groupBox10.TabStop = false;
 			this.groupBox10.Text = "ADC3 (Roll)";
 			// 
@@ -265,10 +296,10 @@
 			// 
 			this.groupBox9.Controls.Add(this.buttonSpiLibStop);
 			this.groupBox9.Controls.Add(this.buttonSpiLibStart);
-			this.groupBox9.Location = new System.Drawing.Point(161, 341);
+			this.groupBox9.Location = new System.Drawing.Point(8, 332);
 			this.groupBox9.Name = "groupBox9";
 			this.groupBox9.Size = new System.Drawing.Size(147, 56);
-			this.groupBox9.TabIndex = 10;
+			this.groupBox9.TabIndex = 4;
 			this.groupBox9.TabStop = false;
 			this.groupBox9.Text = "AD9833 (Lib)";
 			// 
@@ -296,10 +327,10 @@
 			// 
 			this.groupBox8.Controls.Add(this.buttonSpiStop);
 			this.groupBox8.Controls.Add(this.buttonSpiStart);
-			this.groupBox8.Location = new System.Drawing.Point(161, 279);
+			this.groupBox8.Location = new System.Drawing.Point(8, 270);
 			this.groupBox8.Name = "groupBox8";
 			this.groupBox8.Size = new System.Drawing.Size(147, 56);
-			this.groupBox8.TabIndex = 9;
+			this.groupBox8.TabIndex = 3;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "AD9833 (SPI)";
 			// 
@@ -327,10 +358,10 @@
 			// 
 			this.groupBox7.Controls.Add(this.buttonI2cLibStop);
 			this.groupBox7.Controls.Add(this.buttonI2cLibStart);
-			this.groupBox7.Location = new System.Drawing.Point(161, 217);
+			this.groupBox7.Location = new System.Drawing.Point(161, 347);
 			this.groupBox7.Name = "groupBox7";
 			this.groupBox7.Size = new System.Drawing.Size(147, 56);
-			this.groupBox7.TabIndex = 8;
+			this.groupBox7.TabIndex = 10;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "ADXL345 (Lib)";
 			// 
@@ -358,10 +389,10 @@
 			// 
 			this.groupBox6.Controls.Add(this.buttonI2cStop);
 			this.groupBox6.Controls.Add(this.buttonI2cStart);
-			this.groupBox6.Location = new System.Drawing.Point(161, 155);
+			this.groupBox6.Location = new System.Drawing.Point(161, 285);
 			this.groupBox6.Name = "groupBox6";
 			this.groupBox6.Size = new System.Drawing.Size(147, 56);
-			this.groupBox6.TabIndex = 7;
+			this.groupBox6.TabIndex = 9;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "ADXL345 (I2C)";
 			// 
@@ -391,10 +422,10 @@
 			this.groupBox4.Controls.Add(this.radioButton1v);
 			this.groupBox4.Controls.Add(this.buttonFastStop);
 			this.groupBox4.Controls.Add(this.buttonFastStart);
-			this.groupBox4.Location = new System.Drawing.Point(161, 68);
+			this.groupBox4.Location = new System.Drawing.Point(161, 133);
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.Size = new System.Drawing.Size(147, 81);
-			this.groupBox4.TabIndex = 6;
+			this.groupBox4.TabIndex = 7;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "ADC0 (Fast)";
 			// 
@@ -445,10 +476,10 @@
 			// 
 			this.groupBox2.Controls.Add(this.trackBarDac2);
 			this.groupBox2.Controls.Add(this.trackBarDac1);
-			this.groupBox2.Location = new System.Drawing.Point(8, 198);
+			this.groupBox2.Location = new System.Drawing.Point(8, 68);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(147, 95);
-			this.groupBox2.TabIndex = 3;
+			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "DAC (pin 25,26)";
 			// 
@@ -474,40 +505,9 @@
 			this.trackBarDac1.TabIndex = 0;
 			this.trackBarDac1.Scroll += new System.EventHandler(this.trackBarDac1_Scroll);
 			// 
-			// groupBox1
-			// 
-			this.groupBox1.Controls.Add(this.buttonTouchStop);
-			this.groupBox1.Controls.Add(this.buttonTouchStart);
-			this.groupBox1.Location = new System.Drawing.Point(8, 3);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(147, 59);
-			this.groupBox1.TabIndex = 0;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Touch (pin 12-15)";
-			// 
-			// buttonTouchStop
-			// 
-			this.buttonTouchStop.Location = new System.Drawing.Point(77, 22);
-			this.buttonTouchStop.Name = "buttonTouchStop";
-			this.buttonTouchStop.Size = new System.Drawing.Size(65, 27);
-			this.buttonTouchStop.TabIndex = 1;
-			this.buttonTouchStop.Text = "Stop";
-			this.buttonTouchStop.UseVisualStyleBackColor = true;
-			this.buttonTouchStop.Click += new System.EventHandler(this.buttonTouchStop_Click);
-			// 
-			// buttonTouchStart
-			// 
-			this.buttonTouchStart.Location = new System.Drawing.Point(6, 22);
-			this.buttonTouchStart.Name = "buttonTouchStart";
-			this.buttonTouchStart.Size = new System.Drawing.Size(65, 27);
-			this.buttonTouchStart.TabIndex = 0;
-			this.buttonTouchStart.Text = "Start";
-			this.buttonTouchStart.UseVisualStyleBackColor = true;
-			this.buttonTouchStart.Click += new System.EventHandler(this.buttonTouchStart_Click);
-			// 
 			// buttonClose
 			// 
-			this.buttonClose.Location = new System.Drawing.Point(238, 8);
+			this.buttonClose.Location = new System.Drawing.Point(237, 3);
 			this.buttonClose.Name = "buttonClose";
 			this.buttonClose.Size = new System.Drawing.Size(65, 27);
 			this.buttonClose.TabIndex = 2;
@@ -517,7 +517,7 @@
 			// 
 			// buttonOpen
 			// 
-			this.buttonOpen.Location = new System.Drawing.Point(167, 8);
+			this.buttonOpen.Location = new System.Drawing.Point(167, 3);
 			this.buttonOpen.Name = "buttonOpen";
 			this.buttonOpen.Size = new System.Drawing.Size(65, 27);
 			this.buttonOpen.TabIndex = 1;
@@ -527,7 +527,7 @@
 			// 
 			// textBoxAddress
 			// 
-			this.textBoxAddress.Location = new System.Drawing.Point(14, 10);
+			this.textBoxAddress.Location = new System.Drawing.Point(14, 5);
 			this.textBoxAddress.Name = "textBoxAddress";
 			this.textBoxAddress.Size = new System.Drawing.Size(136, 23);
 			this.textBoxAddress.TabIndex = 0;
@@ -592,6 +592,7 @@
 			this.panelOperation.ResumeLayout(false);
 			this.groupBox12.ResumeLayout(false);
 			this.groupBox11.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
 			this.groupBox5.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.trackBarServo2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarServo1)).EndInit();
@@ -605,7 +606,6 @@
 			this.groupBox2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.trackBarDac2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarDac1)).EndInit();
-			this.groupBox1.ResumeLayout(false);
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			this.splitContainer1.Panel2.PerformLayout();
