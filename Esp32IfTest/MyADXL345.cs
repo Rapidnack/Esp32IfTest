@@ -16,7 +16,7 @@ namespace Esp32IfTest
 		private const int ADXL345_BASE = 20000;
 		private const int ADXL345_BEGIN = (ADXL345_BASE + 0);
 		private const int ADXL345_SET_RANGE = (ADXL345_BASE + 1);
-		private const int ADXL345_GET_EVENT = (ADXL345_BASE + 2);
+		private const int ADXL345_GET_EVENT = (ADXL345_BASE + 5);
 
 
 		private Esp32If esp32If;
