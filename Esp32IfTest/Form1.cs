@@ -504,15 +504,25 @@ namespace Esp32IfTest
 				{
 					fastCts = new CancellationTokenSource();
 					var ct = fastCts.Token;
-					await Task.Run(() =>
+					await Task.Run(async () =>
 					{
 						esp32If.analogSetPinAttenuation(FAST_ADC_PIN, att);
 
+						DateTime lastAccessTime = DateTime.MinValue;
 						lineSeries.Points.Clear();
 
 						while (!ct.IsCancellationRequested)
 						{
+							while (!ct.IsCancellationRequested)
+							{
+								int leftInMS = 33 - (int)(DateTime.Now - lastAccessTime).TotalMilliseconds;
+								if (leftInMS <= 0)
+									break;
+								await Task.Delay(Math.Min(leftInMS, 10), ct);
+							}
+
 							int[] ints = analogFastRead(FAST_ADC_PIN, NUM_SAMPLES);
+							lastAccessTime = DateTime.Now;
 							if (ints.Length != 2 * NUM_SAMPLES)
 								return;
 
