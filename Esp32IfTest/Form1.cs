@@ -134,7 +134,6 @@ namespace Esp32IfTest
 				esp32If.ledcAttachPin(SERVO_1_PIN, SERVO_1_CH);
 				esp32If.ledcSetup(SERVO_2_CH, 50, 16);
 				esp32If.ledcAttachPin(SERVO_2_PIN, SERVO_2_CH);
-
 			};
 
 			panelOperation.Enabled = false;
@@ -587,13 +586,13 @@ namespace Esp32IfTest
 
 		private void trackBarServo1_Scroll(object sender, EventArgs e)
 		{
-			int duty = (0x0000ffff * trackBarServo1.Value) / 20000;
+			int duty = (0x00010000 * trackBarServo1.Value) / 20000;
 			esp32If.ledcWrite(SERVO_1_CH, duty);
 		}
 
 		private void trackBarServo2_Scroll(object sender, EventArgs e)
 		{
-			int duty = (0x0000ffff * trackBarServo2.Value) / 20000;
+			int duty = (0x00010000 * trackBarServo2.Value) / 20000;
 			esp32If.ledcWrite(SERVO_2_CH, duty);
 		}
 
