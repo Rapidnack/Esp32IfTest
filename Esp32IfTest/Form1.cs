@@ -12,6 +12,15 @@ namespace Esp32IfTest
 {
 	public partial class Form1 : Form
 	{
+		private const int LED_PIN = 16;
+		private const int INTERRUPT_PIN = 4;
+		private const int ROLL_ADC_PIN = 39;
+		private const int FAST_ADC_PIN = 36;
+		private const int SERVO_1_PIN = 27;
+		private const int SERVO_1_CH = 0;
+		private const int SERVO_2_PIN = 17;
+		private const int SERVO_2_CH = 1;
+
 		private Esp32If esp32If;
 		private MyAD9833 ad9833;
 		private MyADXL345 adxl345;
@@ -117,6 +126,12 @@ namespace Esp32IfTest
 
 				oledDisplay.drawString(0, 48, "Connected");
 				oledDisplay.display();
+
+				esp32If.ledcSetup(SERVO_1_CH, 50, 16);
+				esp32If.ledcAttachPin(SERVO_1_PIN, SERVO_1_CH);
+				esp32If.ledcSetup(SERVO_2_CH, 50, 16);
+				esp32If.ledcAttachPin(SERVO_2_PIN, SERVO_2_CH);
+
 			};
 
 			panelOperation.Enabled = false;
@@ -159,9 +174,6 @@ namespace Esp32IfTest
 		{
 			buttonLedStart.Enabled = false;
 			buttonLedStop.Enabled = true;
-
-			int LED_PIN = 16;
-			int INTERRUPT_PIN = 4;
 
 			try
 			{
@@ -254,8 +266,7 @@ namespace Esp32IfTest
 			buttonRollStart.Enabled = false;
 			buttonRollStop.Enabled = true;
 
-			double ROLL_ADC_SCALE = 3.6;
-			int ROLL_ADC_PIN = 39;
+			double ROLL_ADC_SCALE = 3.3;
 			int NUM_SAMPLES = 200;
 
 			PlotModel plotModel = new PlotModel();
@@ -461,7 +472,6 @@ namespace Esp32IfTest
 			buttonFastStart.Enabled = false;
 			buttonFastStop.Enabled = true;
 
-			int FAST_ADC_PIN = 36;
 			double FAST_ADC_SCALE = 1.0;
 			int NUM_SAMPLES = 200;
 
@@ -535,24 +545,12 @@ namespace Esp32IfTest
 
 		private void trackBarServo1_Scroll(object sender, EventArgs e)
 		{
-			int SERVO_1_PIN = 27;
-			int SERVO_1_CH = 0;
-
-			esp32If.ledcSetup(SERVO_1_CH, 50, 16);
-			esp32If.ledcAttachPin(SERVO_1_PIN, SERVO_1_CH);
-
 			int duty = (0x0000ffff * trackBarServo1.Value) / 20000;
 			esp32If.ledcWrite(SERVO_1_CH, duty);
 		}
 
 		private void trackBarServo2_Scroll(object sender, EventArgs e)
 		{
-			int SERVO_2_PIN = 17;
-			int SERVO_2_CH = 1;
-
-			esp32If.ledcSetup(SERVO_2_CH, 50, 16);
-			esp32If.ledcAttachPin(SERVO_2_PIN, SERVO_2_CH);
-
 			int duty = (0x0000ffff * trackBarServo2.Value) / 20000;
 			esp32If.ledcWrite(SERVO_2_CH, duty);
 		}
