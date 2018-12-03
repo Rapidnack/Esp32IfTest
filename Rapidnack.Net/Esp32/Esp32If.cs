@@ -332,19 +332,14 @@ namespace Rapidnack.Net.Esp32
 
 		// void attachInterrupt(uint8_t pin, void (*)(void), int mode);
 		// private const int ATTACH_INTERRUPT = 503;
-		public void attachInterrupt(int user_gpio, Action<int, UInt32> f, InterruptMode mode)
+		public void attachInterrupt(int pin, Action<int, UInt32> f, InterruptMode mode)
 		{
-			if (user_gpio < 0 && 32 <= user_gpio)
-			{
-				throw new GpiodIfException("GPIO not 0-31");
-			}
-
-			if (InternalCallback(user_gpio, f) != 0)
+			if (InternalCallback(pin, f) != 0)
 				return;
 
-			if (GpioCommand(ATTACH_INTERRUPT, user_gpio, (int)mode) != 0)
+			if (GpioCommand(ATTACH_INTERRUPT, pin, (int)mode) != 0)
 			{
-				InternalCallbackCancel(user_gpio);
+				InternalCallbackCancel(pin);
 				return;
 			}
 		}
@@ -353,12 +348,12 @@ namespace Rapidnack.Net.Esp32
 
 		// void detachInterrupt(uint8_t pin);
 		// private const int DETACH_INTERRUPT = 505;
-		public void detachInterrupt(int user_gpio)
+		public void detachInterrupt(int pin)
 		{
-			if (GpioCommand(DETACH_INTERRUPT, user_gpio, 0) != 0)
+			if (GpioCommand(DETACH_INTERRUPT, pin, 0) != 0)
 				return;
 
-			InternalCallbackCancel(user_gpio);
+			InternalCallbackCancel(pin);
 		}
 
 
@@ -487,11 +482,6 @@ namespace Rapidnack.Net.Esp32
 		// private const int TOUCH_ATTACH_INTERRUPT = 1402;
 		public void touchAttachInterrupt(int pin, Action<int, UInt32> f, int threshold)
 		{
-			if (pin < 0 && 32 <= pin)
-			{
-				throw new GpiodIfException("GPIO not 0-31");
-			}
-
 			if (GpioCommand(TOUCH_ATTACH_INTERRUPT, pin, threshold) != 0)
 				return;
 

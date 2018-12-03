@@ -622,47 +622,47 @@ namespace Rapidnack.Net
 			}
 		}
 
-		protected int InternalCallback(int user_gpio, Action<int, UInt32> f)
+		protected int InternalCallback(int pin, Action<int, UInt32> f)
 		{
 			if (f == null)
 			{
 				throw new GpiodIfException("null callback function");
 			}
 
-			if (user_gpio < 0 && callbackList.Length <= user_gpio)
+			if (pin < 0 && callbackList.Length <= pin)
 			{
-				throw new GpiodIfException($"GPIO not 0-{callbackList.Length - 1}");
+				throw new GpiodIfException($"pin not 0-{callbackList.Length - 1}");
 			}
 
 			/* prevent duplicates */
-			if (callbackList[user_gpio] != null)
+			if (callbackList[pin] != null)
 			{
 				throw new GpiodIfException("identical callback exists");
 			}
 
 			var callback = new Callback()
 			{
-				gpio = user_gpio,
+				gpio = pin,
 				f = f
 			};
-			callbackList[user_gpio] = callback;
+			callbackList[pin] = callback;
 
 			return 0;
 		}
 
-		protected int InternalCallbackCancel(int user_gpio)
+		protected int InternalCallbackCancel(int pin)
 		{
-			if (user_gpio < 0 && callbackList.Length <= user_gpio)
+			if (pin < 0 && callbackList.Length <= pin)
 			{
-				throw new GpiodIfException($"GPIO not 0-{callbackList.Length - 1}");
+				throw new GpiodIfException($"pin not 0-{callbackList.Length - 1}");
 			}
 
-			if (callbackList[user_gpio] == null)
+			if (callbackList[pin] == null)
 			{
 				throw new GpiodIfException("callback not found");
 			}
 
-			callbackList[user_gpio] = null;
+			callbackList[pin] = null;
 
 			return 0;
 		}
