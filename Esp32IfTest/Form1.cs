@@ -307,7 +307,7 @@ namespace Esp32IfTest
 						if (ct.IsCancellationRequested)
 							break;
 
-						//Console.WriteLine("{0}", volt.ToString("0.0"));
+						//Console.WriteLine($"{volt.ToString("0.0")}");
 
 						Invoke(new Action(() =>
 						{
@@ -367,7 +367,7 @@ namespace Esp32IfTest
 				fastCts.Cancel();
 			}
 
-			double ADC_SCALE = 3.6;
+			double ADC_SCALE = 3.3;
 			int[] adcPins = { 32, 33, 34, 35 };
 			int[] adcCHs = { 4, 5, 6, 7 };
 			int NUM_CHANNELS = 4;
@@ -378,7 +378,7 @@ namespace Esp32IfTest
 			for (int ch = 0; ch < NUM_CHANNELS; ch++)
 			{
 				lineSeries[ch] = new LineSeries();
-				lineSeries[ch].Title = string.Format("ADC{0}", adcCHs[ch]);
+				lineSeries[ch].Title = string.Format($"ADC{adcCHs[ch]}");
 				plotModel.Series.Add(lineSeries[ch]);
 			}
 			plotModel.Axes.Add(
@@ -428,7 +428,7 @@ namespace Esp32IfTest
 						//{
 						//	s += string.Format(", {0:0.0}", volts[ch]);
 						//}
-						//Console.WriteLine("{0}", s);
+						//Console.WriteLine($"{s}");
 
 						Invoke(new Action(() =>
 						{
