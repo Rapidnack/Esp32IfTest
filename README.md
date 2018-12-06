@@ -2,7 +2,7 @@
 
 Esp32IfTestプロジェクトは、C#ライブラリEsp32Ifと、そのサンプルアプリケーションEsp32IfTestを含んでいます。
 
-C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32 Library](https://github.com/Rapidnack/RemoteEsp32)のArduinoライブラリと組み合わせることで、
+C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32](https://github.com/Rapidnack/RemoteEsp32)のArduinoライブラリと組み合わせることで、
 [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32)のほとんどの関数をC#から実行することができます。
 ![Esp32If and RemoteEsp32](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/RemoteEsp32_fig1c.png)
 
@@ -34,7 +34,7 @@ C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32 Library](https:/
 
 6. [AD9833 Library](https://github.com/Billwilliams1952/AD9833-Library-Arduino)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
 
-7. [RemoteEsp32 Library](https://github.com/Rapidnack/RemoteEsp32)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
+7. [RemoteEsp32](https://github.com/Rapidnack/RemoteEsp32)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
 
 8. ESP32とPCをUSBケーブルで繋ぎます。
 
