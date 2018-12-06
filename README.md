@@ -20,7 +20,7 @@ C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32 Library](https:/
 
 # Usage
 
-#### Setup your ESP32 with RemoteEsp32 library
+#### ESP32の準備
 
 1. 最新の[Arduino IDE](https://www.arduino.cc/en/main/software)をダウンロードしてインストールします。
 
