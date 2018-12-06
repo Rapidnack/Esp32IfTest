@@ -22,7 +22,7 @@ C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32](https://github.
 
 #### ESP32の準備
 
-1. 最新の[Arduino IDE](https://www.arduino.cc/en/main/software)をダウンロードしてインストールします。
+1. [Arduino IDE](https://www.arduino.cc/en/main/software)をダウンロードしてインストールします。
 
 2. [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32)のインストール手順に従ってライブラリマネージャに追加してインストールします。
 
