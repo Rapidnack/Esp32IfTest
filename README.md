@@ -51,13 +51,11 @@ C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32](https://github.
 # Status
 
 [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32)の関数の内、下記をC#から実行できます。
-
 - double temperatureRead()
 - uint micros()
 - uint millis()
 - void delay(uint ms)
 - void delayMicroseconds(uint us)
-
 - int analogRead(int pin)
 - void analogReadResolution(int bits)
 - void analogSetWidth(int bits)
@@ -71,14 +69,12 @@ C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32](https://github.
 - bool adcStart(int pin)
 - bool adcBusy(int pin)
 - int adcEnd(int pin)
-
 - void dacWrite(int pin, int value)
 - void pinMode(int pin, GpioFunction mode)
 - void digitalWrite(int pin, int val)
 - int digitalRead(int pin)
 - void attachInterrupt(int pin, Action<int, UInt32> f, InterruptMode mode)
 - void detachInterrupt(int pin)
-
 - double ledcSetup(int channel, double freq, int resolution_bits)
 - void ledcWrite(int channel, int duty)
 - double ledcWriteTone(int channel, double freq)
@@ -87,19 +83,16 @@ C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32](https://github.
 - double ledcReadFreq(int channel)
 - void ledcAttachPin(int pin, int channel)
 - void ledcDetachPin(int pin)
-
 - uint sigmaDeltaSetup(int channel, uint freq)
 - void sigmaDeltaWrite(int channel, int duty)
 - int sigmaDeltaRead(int channel)
 - void sigmaDeltaAttachPin(int pin, int channel)
 - void sigmaDeltaDetachPin(int pin)
-
 - void touchSetCycles(int measure, int sleep)
 - int touchRead(int pin)
 - void touchAttachInterrupt(int pin, Action<int, UInt32> f, int threshold)
 
 #### I2C
-
 - void begin(int sda = -1, int scl = -1, uint frequency = 0)
 - void setClock(uint frequency)
 - uint getClock(uint frequency)
