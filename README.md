@@ -40,8 +40,6 @@ C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32](https://github.
 
 9. File > Examples > RemoteEsp32 > Esp32ServerTestSTAでサンプルスケッチを開き、ESP32に書き込みます。
 
-# Licence
-
 # Authors
 
 [Rapidnack](http://rapidnack.com/)
