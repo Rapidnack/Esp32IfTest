@@ -2,11 +2,11 @@
 
 Esp32IfTestプロジェクトは、C#ライブラリEsp32Ifと、そのサンプルアプリケーションEsp32IfTestを含んでいます。
 
-C#ライブラリEsp32Ifは、別プロジェクトのArduinoライブラリ[RemoteEsp32 Library](https://github.com/Rapidnack/RemoteEsp32)と組み合わせることで、
+C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32 Library](https://github.com/Rapidnack/RemoteEsp32)のArduinoライブラリと組み合わせることで、
 [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32)のほとんどの関数をC#から実行することができます。
 ![Esp32If and RemoteEsp32](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/RemoteEsp32_fig1b.png)
 
-サンプルアプリケーションEsp32IfTestは、C#ライブラリEsp32Ifを使ったWindows.Formsアプリケーションです。ESP32のADC、DAC、LEDC、Touch、I2C、SPIをC#から操作しています。ESP32には別プロジェクトのArduinoライブラリ[RemoteEsp32 Library](https://github.com/Rapidnack/RemoteEsp32)のサンプルスケッチEsp32ServerTestSTA.inoをダウンロードしておきます。
+サンプルアプリケーションEsp32IfTestは、C#ライブラリEsp32Ifを使ったWindows.Formsアプリケーションです。ESP32のADC、DAC、LEDC、Touch、I2C、SPIをC#から操作しています。ESP32には別プロジェクトのArduinoライブラリ[RemoteEsp32 Library](https://github.com/Rapidnack/RemoteEsp32)のサンプルスケッチEsp32ServerTestSTA.inoを書き込みます。
 ![Esp32IfTest and Esp32ServerTestSTA](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/RemoteEsp32_fig2.png)
 
 ![Esp32IfTest screen](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/Esp32IfTest1.png)
@@ -21,18 +21,24 @@ C#ライブラリEsp32Ifは、別プロジェクトのArduinoライブラリ[Rem
 # Usage
 
 #### Setup your ESP32 with RemoteEsp32 library
-1. [Download Arduino IDE](https://www.arduino.cc/en/main/software) and install it.
-2. [Download Arduino core for the ESP32](https://github.com/espressif/arduino-esp32) and install it.
-3. Install ESP8266 and ESP32 Oled Driver for SSD1306 display using Library Manager.
-4. Install Adafruit Unified sensor using Library Manager.
-5. Install Adafruit ADXL345 using Library Manager.
-6. [Download AD9833 Library](https://github.com/Billwilliams1952/AD9833-Library-Arduino) and Import the .zip library.
-7. [Download RemoteEsp32 Library](https://github.com/Rapidnack/RemoteEsp32) and Import the .zip library.
 
-2. Connect your ESP32 board to your computer using an USB cable.
-3. Start the Arduino IDE and navigate to File > Examples > RemoteEsp32 > Esp32ServerTestSTA.
-4. Upload the sketch.
+1. 最新の[Arduino IDE](https://www.arduino.cc/en/main/software)をダウンロードしてインストールします。
 
+2. [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32)のインストール手順に従ってライブラリマネージャに追加してインストールします。
+
+3. ESP8266 and ESP32 Oled Driver for SSD1306 displayをライブラリマネージャで検索してインストールします。
+
+4. Adafruit Unified sensorをライブラリマネージャで検索してインストールします。
+
+5. Adafruit ADXL345をライブラリマネージャで検索してインストールします。
+
+6. [AD9833 Library](https://github.com/Billwilliams1952/AD9833-Library-Arduino)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
+
+7. [RemoteEsp32 Library](https://github.com/Rapidnack/RemoteEsp32)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
+
+8. ESP32とPCをUSBケーブルで繋ぎます。
+
+9. File > Examples > RemoteEsp32 > Esp32ServerTestSTAでサンプルスケッチを開き、ESP32に書き込みます。
 
 # Licence
 
