@@ -7,7 +7,7 @@ C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32 Library](https:/
 ![Esp32If and RemoteEsp32](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/RemoteEsp32_fig1c.png)
 
 サンプルアプリケーションEsp32IfTestは、C#ライブラリEsp32Ifを使ったWindows.Formsアプリケーションです。ESP32のADC、DAC、LEDC、Touch、I2C、SPIをC#から操作しています。ESP32には別プロジェクトのArduinoライブラリ[RemoteEsp32 Library](https://github.com/Rapidnack/RemoteEsp32)のサンプルスケッチEsp32ServerTestSTA.inoを書き込みます。
-![Esp32IfTest and Esp32ServerTestSTA](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/RemoteEsp32_fig2b.png)
+![Esp32IfTest and Esp32ServerTestSTA](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/RemoteEsp32_fig2c.png)
 
 ![Esp32IfTest screen](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/Esp32IfTest1.png)
 
