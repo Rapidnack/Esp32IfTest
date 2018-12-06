@@ -11,7 +11,7 @@ C#ライブラリEsp32Ifは、別プロジェクトのArduinoライブラリ[Rem
 
 ![Esp32IfTest screen](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/Esp32IfTest1.png)
 
-![Esp32IfTest bread board](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/IMG_20181206_195958b.jpg)
+![Esp32IfTest bread board](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/IMG_20181206_195958b.png)
 
 # Dependency
 
