@@ -1,4 +1,4 @@
-# Esp32IfTest
+﻿# Esp32IfTest
 
 Esp32IfTestプロジェクトは、C#ライブラリEsp32Ifと、そのサンプルアプリケーションEsp32IfTestを含んでいます。
 
@@ -6,49 +6,12 @@ C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32](https://github.
 [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32)のほとんどの関数をC#から実行することができます。
 ![Esp32If and RemoteEsp32](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/RemoteEsp32_fig1c.png)
 
-サンプルアプリケーションEsp32IfTestは、C#ライブラリEsp32Ifを使ったWindows.Formsアプリケーションです。ESP32のADC、DAC、LEDC、Touch、I2C、SPIをC#から操作しています。ESP32には別プロジェクトのArduinoライブラリ[RemoteEsp32](https://github.com/Rapidnack/RemoteEsp32)のサンプルスケッチEsp32ServerTestSTA.inoを書き込みます。
+サンプルアプリケーションEsp32IfTestは、C#ライブラリEsp32Ifを使ったWindows.Formsアプリケーションです。ESP32のADC、DAC、LEDC、Touch、I2C、SPIをC#から操作しています。ESP32には別プロジェクトのArduinoライブラリ[RemoteEsp32](https://github.com/Rapidnack/RemoteEsp32)のサンプルスケッチEsp32ServerStaTest.inoを書き込みます。
 ![Esp32IfTest and Esp32ServerTestSTA](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/RemoteEsp32_fig2c.png)
 
 ![Esp32IfTest screen](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/Esp32IfTest1.png)
 
 ![Esp32IfTest bread board](http://rapidack.sakura.ne.jp/ttl/wp-content/uploads/2018/12/RemoteEsp32_breadboardb.png)
-
-# Dependency
-
-- Microsoft Visual Studio Community 2017
-- .NET Framework 4.6.1
-
-# Usage
-
-#### ESP32の準備
-
-1. [Arduino IDE](https://www.arduino.cc/en/main/software)をダウンロードしてインストールします。
-
-2. [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32)のインストール手順に従ってライブラリマネージャに追加してインストールします。
-
-3. [RemoteEsp32](https://github.com/Rapidnack/RemoteEsp32)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
-
-4. ESP8266 and ESP32 Oled Driver for SSD1306 displayをライブラリマネージャで検索してインストールします。
-
-5. [AD9833 Library](https://github.com/Billwilliams1952/AD9833-Library-Arduino)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
-
-6. Adafruit Unified sensorをライブラリマネージャで検索してインストールします。
-
-7. Adafruit ADXL345をライブラリマネージャで検索してインストールします。
-
-8. ESP32とPCをUSBケーブルで繋ぎます。
-
-9. File > Examples > RemoteEsp32 > Esp32ServerTestSTAでサンプルスケッチを開き、ESP32に書き込みます。
-
-# Authors
-
-[Rapidnack](http://rapidnack.com/)
-
-# References
-
-[https://github.com/Rapidnack/RemoteEsp32](https://github.com/Rapidnack/RemoteEsp32)  
-
-# Status
 
 [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32)の関数の内、下記をC#から実行できます。
 - double temperatureRead()
@@ -151,3 +114,38 @@ C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32](https://github.
 - void writeBytes(byte[] data)
 - void writePixels(byte[] data)
 - void writePattern(byte[] data, uint repeat)
+
+# Dependency
+
+- Microsoft Visual Studio Community 2017
+- .NET Framework 4.6.1
+
+# Usage
+
+#### ESP32の準備
+
+1. [Arduino IDE](https://www.arduino.cc/en/main/software)をダウンロードしてインストールします。
+
+2. [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32)のインストール手順に従ってライブラリマネージャに追加してインストールします。
+
+3. [RemoteEsp32](https://github.com/Rapidnack/RemoteEsp32)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
+
+4. ESP8266 and ESP32 Oled Driver for SSD1306 displayをライブラリマネージャで検索してインストールします。
+
+5. [AD9833 Library](https://github.com/Billwilliams1952/AD9833-Library-Arduino)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
+
+6. Adafruit Unified sensorをライブラリマネージャで検索してインストールします。
+
+7. Adafruit ADXL345をライブラリマネージャで検索してインストールします。
+
+8. ESP32とPCをUSBケーブルで繋ぎます。
+
+9. File > Examples > RemoteEsp32 > Esp32ServerStaTestでサンプルスケッチを開き、ESP32に書き込みます。
+
+# Authors
+
+[Rapidnack](http://rapidnack.com/)
+
+# References
+
+[https://github.com/Rapidnack/RemoteEsp32](https://github.com/Rapidnack/RemoteEsp32)  
