@@ -2,6 +2,22 @@
 {
 	public class OLEDDisplay
 	{
+
+		public enum Color
+		{
+			BLACK = 0,
+			WHITE = 1,
+			INVERSE = 2
+		}
+
+		public enum TextAlignment
+		{
+			TEXT_ALIGN_LEFT = 0,
+			TEXT_ALIGN_RIGHT = 1,
+			TEXT_ALIGN_CENTER = 2,
+			TEXT_ALIGN_CENTER_BOTH = 3
+		}
+
 		private const int OLEDDISPLAY_BASE = 20200;
 		// bool init();
 		private const int OLEDDISPLAY_INIT = (OLEDDISPLAY_BASE + 0);
@@ -12,7 +28,7 @@
 		// void setColor(OLEDOLEDDISPLAY_COLOR color);
 		private const int OLEDDISPLAY_SET_COLOR = (OLEDDISPLAY_BASE + 3);
 		// OLEDOLEDDISPLAY_COLOR getColor();
-		private const int OLEDDISPLAY_COLOR = (OLEDDISPLAY_BASE + 4);
+		private const int OLEDDISPLAY_GET_COLOR = (OLEDDISPLAY_BASE + 4);
 		// void setPixel(int16_t x, int16_t y);
 		private const int OLEDDISPLAY_SET_PIXEL = (OLEDDISPLAY_BASE + 5);
 		// void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1);
@@ -112,13 +128,13 @@
 
 		// void setColor(OLEDOLEDDISPLAY_COLOR color);
 		// private const int OLEDDISPLAY_SET_COLOR = (OLEDDISPLAY_BASE + 3);
-		//public void setColor(int color)
-		//{ esp32If.pigpio_command(OLEDDISPLAY_SET_COLOR, color, 0); }
+		public void setColor(Color color)
+		{ esp32If.GpioCommand(OLEDDISPLAY_SET_COLOR, (int)color, 0); }
 
 		// OLEDOLEDDISPLAY_COLOR getColor();
-		// private const int OLEDDISPLAY_COLOR = (OLEDDISPLAY_BASE + 4);
-		//public int getColor()
-		//{ return esp32If.pigpio_command(OLEDDISPLAY_COLOR, 0, 0); }
+		// private const int OLEDDISPLAY_GET_COLOR = (OLEDDISPLAY_BASE + 4);
+		public Color getColor()
+		{ return (Color)esp32If.GpioCommand(OLEDDISPLAY_GET_COLOR, 0, 0); }
 
 		// void setPixel(int16_t x, int16_t y);
 		// private const int OLEDDISPLAY_SET_PIXEL = (OLEDDISPLAY_BASE + 5);
@@ -384,8 +400,8 @@
 
 		// void setTextAlignment(OLEDOLEDDISPLAY_TEXT_ALIGNMENT textAlignment);
 		// private const int OLEDDISPLAY_SET_TEXT_ALIGNMENT = (OLEDDISPLAY_BASE + 20);
-		public void setTextAlignment(int textAlignment)
-		{ esp32If.GpioCommand(OLEDDISPLAY_SET_TEXT_ALIGNMENT, textAlignment, 0); }
+		public void setTextAlignment(TextAlignment textAlignment)
+		{ esp32If.GpioCommand(OLEDDISPLAY_SET_TEXT_ALIGNMENT, (int)textAlignment, 0); }
 
 		// void setFont(const uint8_t *fontData);
 		// private const int OLEDDISPLAY_SET_FONT = (OLEDDISPLAY_BASE + 21);
