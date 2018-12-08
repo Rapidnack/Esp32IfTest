@@ -26,15 +26,15 @@ C#ライブラリEsp32Ifは、別プロジェクト[RemoteEsp32](https://github.
 
 2. [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32)のインストール手順に従ってライブラリマネージャに追加してインストールします。
 
-3. ESP8266 and ESP32 Oled Driver for SSD1306 displayをライブラリマネージャで検索してインストールします。
+3. [RemoteEsp32](https://github.com/Rapidnack/RemoteEsp32)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
 
-4. Adafruit Unified sensorをライブラリマネージャで検索してインストールします。
+4. ESP8266 and ESP32 Oled Driver for SSD1306 displayをライブラリマネージャで検索してインストールします。
 
-5. Adafruit ADXL345をライブラリマネージャで検索してインストールします。
+5. [AD9833 Library](https://github.com/Billwilliams1952/AD9833-Library-Arduino)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
 
-6. [AD9833 Library](https://github.com/Billwilliams1952/AD9833-Library-Arduino)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
+6. Adafruit Unified sensorをライブラリマネージャで検索してインストールします。
 
-7. [RemoteEsp32](https://github.com/Rapidnack/RemoteEsp32)をZIPファイルを保存し、Sketch > Include Library > Add .ZIP Libraryでインストールします。
+7. Adafruit ADXL345をライブラリマネージャで検索してインストールします。
 
 8. ESP32とPCをUSBケーブルで繋ぎます。
 
