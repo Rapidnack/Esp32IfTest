@@ -73,7 +73,7 @@ namespace Esp32IfTest
 			esp32If.GpioCommand(AD9833_SET_FREQUENCY, (int)freqReg, (int)(freqInHz * 10));
 		}
 
-		// private const int AD9833_ENABLE_OUTPUT = (AD9833_BASE + 93);
+		// private const int AD9833_ENABLE_OUTPUT = (AD9833_BASE + 9);
 		public void EnableOutput(bool enable)
 		{
 			esp32If.GpioCommand(AD9833_ENABLE_OUTPUT, enable ? 1 : 0, 0);
