@@ -184,9 +184,9 @@ namespace Esp32IfTest
 
 				try
 				{
-					esp32If.attachInterrupt(INTERRUPT_PIN, (gpio, millis) =>
+					esp32If.attachInterrupt(INTERRUPT_PIN, (pin, millis) =>
 					{
-						Console.WriteLine($"pin: {gpio}, value: {esp32If.digitalRead(gpio)}, milliseconds: {millis}");
+						Console.WriteLine($"pin: {pin}, value: {esp32If.digitalRead(pin)}, milliseconds: {millis}");
 					}, Esp32If.InterruptMode.CHANGE);
 
 					await Task.Run(async () =>
@@ -234,21 +234,21 @@ namespace Esp32IfTest
 			buttonTouchStart.Enabled = false;
 			buttonTouchStop.Enabled = true;
 
-			esp32If.touchAttachInterrupt(12, (gpio, millis) =>
+			esp32If.touchAttachInterrupt(12, (pin, millis) =>
 			{
-				Console.WriteLine($"pin: {gpio}, value: {esp32If.touchRead(gpio)}, milliseconds: {millis}");
+				Console.WriteLine($"pin: {pin}, value: {esp32If.touchRead(pin)}, milliseconds: {millis}");
 			}, 30);
-			esp32If.touchAttachInterrupt(13, (gpio, millis) =>
+			esp32If.touchAttachInterrupt(13, (pin, millis) =>
 			{
-				Console.WriteLine($"pin: {gpio}, value: {esp32If.touchRead(gpio)}, milliseconds: {millis}");
+				Console.WriteLine($"pin: {pin}, value: {esp32If.touchRead(pin)}, milliseconds: {millis}");
 			}, 30);
-			esp32If.touchAttachInterrupt(14, (gpio, millis) =>
+			esp32If.touchAttachInterrupt(14, (pin, millis) =>
 			{
-				Console.WriteLine($"pin: {gpio}, value: {esp32If.touchRead(gpio)}, milliseconds: {millis}");
+				Console.WriteLine($"pin: {pin}, value: {esp32If.touchRead(pin)}, milliseconds: {millis}");
 			}, 30);
-			esp32If.touchAttachInterrupt(15, (gpio, millis) =>
+			esp32If.touchAttachInterrupt(15, (pin, millis) =>
 			{
-				Console.WriteLine($"pin: {gpio}, value: {esp32If.touchRead(gpio)}, milliseconds: {millis}");
+				Console.WriteLine($"pin: {pin}, value: {esp32If.touchRead(pin)}, milliseconds: {millis}");
 			}, 30);
 		}
 
